@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Téléchargeur de vidéos Geekfusion 🇨🇮</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ff8200, #fff, #009e60);
+      animation: bgmove 10s infinite alternate;
+      text-align: center;
+    }
+
+    .header {
+      padding: 40px 20px;
+    }
+
+    .highlight {
+      color: #ff8200;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    .geek img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #f60;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      animation: popIn 3s ease-in-out;
+      margin-top: 20px;
+    }
+
+    .form-section {
+      margin-top: 40px;
+    }
+
+    input[type="text"], select {
+      padding: 12px;
+      width: 60%;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    button {
+      padding: 12px 25px;
+      background-color: #009e60;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #007f4f;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-weight: bold;
+    }
+
+    .download-video {
+      margin-top: 20px;
+    }
+
+    @keyframes bgmove {
+      from {background-position: 0%;}
+      to {background-position: 100%;}
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.5) rotateY(180deg); opacity: 0; }
+      100% { transform: scale(1.5) rotateY(0deg); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Bienvenue sur <span class="highlight">Téléchargeur de vidéos Geekfusion 🇨🇮</span></h1>
+    <div class="geek">
+      <img src="geek-image.png" alt="Geek manipulant un ordinateur" />
+    </div>
+  </div>
+
+  <div class="form-section">
+    <input type="text" id="videoURL" placeholder="Collez le lien de la vidéo ici..."/>
+    <br>
+    <select id="format">
+      <option value="mp4">MP4</option>
+      <option value="mp3">MP3</option>
+      <option value="webm">WEBM</option>
+    </select>
+    <br>
+    <button onclick="generateDownload()">Télécharger</button>
+    <div id="message"></div>
+    <div class="download-video" id="downloadContainer"></div>
+  </div>
+
+  <footer>Site créé par <strong>Geekfusion 🇨🇮</strong></footer>
+
+  <script>
+    function generateDownload() {
+      const link = document.getElementById('videoURL').value.trim();
+      const format = document.getElementById('format').value;
+      const message = document.getElementById('message');
+      const container = document.getElementById('downloadContainer');
+
+      if (!link) {
+        message.innerText = "Veuillez entrer un lien YouTube valide.";
+        container.innerHTML = "";
+        return;
+      }
+
+      message.innerText = "Génération du lien de téléchargement...";
+      container.innerHTML = `
+        <iframe style="background: transparent; width:100%; height:90px; border-radius:10px; border:none;" 
+          scrolling="no" 
+          src="https://loader.to/api/button/?url=${encodeURIComponent(link)}&f=${format}">
+        </iframe>
+      `;
+      message.innerText = "";
+    }
+  </script>
+</body>
+</html>
