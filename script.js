@@ -27,4 +27,6 @@ function downloadVideo() {
       console.error(err);
       message.innerText = "Une erreur est survenue.";
     });
+}function toggleTheme() {
+  document.body.classList.toggle("neon-theme");
 }
